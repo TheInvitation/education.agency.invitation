@@ -1,77 +1,545 @@
-margin-bottom: 10px;
-            line-height: 1.5;
-            display: flex;
-            align-items: flex-start;
+<!DOCTYPE html><html class="scroll-smooth" lang="hy"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=5.0" name="viewport">
+<title>Հրավեր | Education Agency</title>
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&amp;family=Noto+Serif+Armenian:wght@300;400;500;600;700&amp;family=Playfair+Display:ital,wght@0,400;0,600;1,400&amp;family=Plus+Jakarta+Sans:wght@300;400;500;600&amp;display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              ivory: '#fcfaf6',
+              card: 'rgba(255, 255, 255, 0.92)',
+              gold: '#b89052',
+              goldLight: '#d4b27b',
+              goldSubtle: '#f3ebd9',
+              goldDark: '#86642d',
+              charcoal: '#2d2720',
+              muted: '#6f665d'
+            }
+          },
+          fontFamily: {
+            serifAm: ['"Noto Serif Armenian"', '"Playfair Display"', 'Georgia', 'serif'],
+            display: ['Cinzel', '"Playfair Display"', 'serif'],
+            sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif']
+          }
         }
-        .program-item span {
-            margin-right: 10px;
-            font-size: 16px;
-        }
-        .closing-text {
-            font-size: 13px;
-            color: #6e5d53;
-            text-align: center;
-            margin-top: 20px;
-            line-height: 1.6;
-            font-style: italic;
-        }
-        .footer {
-            font-size: 11px;
-            letter-spacing: 2px;
-            color: #bfaea2;
-            text-transform: uppercase;
-            margin-top: 15px;
-        }
-    </style>
+      }
+    }
+  </script>
+<style>
+    :root {
+      --gold-primary: #b89052;
+      --gold-light: #d4b27b;
+      --gold-subtle: #f3ebd9;
+      --gold-dark: #86642d;
+    }
+
+    /* Ambient background styling */
+    body {
+      background-color: #fcfaf6;
+      background-image:
+        radial-gradient(at 15% 10%, rgba(212, 178, 123, 0.14) 0px, transparent 50%),
+        radial-gradient(at 85% 40%, rgba(184, 144, 82, 0.10) 0px, transparent 55%),
+        radial-gradient(at 25% 75%, rgba(212, 178, 123, 0.12) 0px, transparent 50%),
+        radial-gradient(at 80% 95%, rgba(184, 144, 82, 0.15) 0px, transparent 60%);
+      background-attachment: fixed;
+      font-family: 'Noto Serif Armenian', 'Playfair Display', Georgia, serif;
+      color: #2d2720;
+    }
+
+    #particles-canvas {
+      position: fixed;
+      inset: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    /* Scroll animations */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1), transform 0.9s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+
+    .reveal.active {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1 { transition-delay: 0.1s; }
+    .stagger-2 { transition-delay: 0.2s; }
+    .stagger-3 { transition-delay: 0.3s; }
+    .stagger-4 { transition-delay: 0.4s; }
+    .stagger-5 { transition-delay: 0.5s; }
+    .stagger-6 { transition-delay: 0.6s; }
+
+    /* Elegant gold border framing */
+    .luxury-card-border {
+      position: relative;
+    }
+    .luxury-card-border::after {
+      content: '';
+      position: absolute;
+      inset: 8px;
+      border: 1px solid rgba(184, 144, 82, 0.22);
+      border-radius: inherit;
+      pointer-events: none;
+    }
+
+    /* Corner Luxury Ornaments */
+    .corner-decor {
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      pointer-events: none;
+      opacity: 0.7;
+    }
+    .corner-tl { top: 12px; left: 12px; border-top: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); border-top-left-radius: 4px; }
+    .corner-tr { top: 12px; right: 12px; border-top: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); border-top-right-radius: 4px; }
+    .corner-bl { bottom: 12px; left: 12px; border-bottom: 2px solid var(--gold-light); border-left: 2px solid var(--gold-light); border-bottom-left-radius: 4px; }
+    .corner-br { bottom: 12px; right: 12px; border-bottom: 2px solid var(--gold-light); border-right: 2px solid var(--gold-light); border-bottom-right-radius: 4px; }
+
+    /* Keyframes */
+    @keyframes subtlePulse {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(184, 144, 82, 0.25); }
+      50% { transform: scale(1.025); box-shadow: 0 0 0 8px rgba(184, 144, 82, 0); }
+    }
+
+    .pulse-monogram {
+      animation: subtlePulse 3.8s infinite ease-in-out;
+    }
+
+    @keyframes bounceHint {
+      0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+      40% { transform: translateY(7px); }
+      60% { transform: translateY(3px); }
+    }
+
+    .bounce-indicator {
+      animation: bounceHint 2.4s infinite ease-in-out;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .reveal {
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+      .bounce-indicator, .pulse-monogram {
+        animation: none !important;
+      }
+      #particles-canvas {
+        display: none !important;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="relative min-h-screen text-brand-charcoal antialiased overflow-x-hidden selection:bg-brand-goldSubtle selection:text-brand-goldDark">
+<!-- Ambient Golden Dust Canvas -->
+<canvas aria-hidden="true" id="particles-canvas" width="1280" height="3170"></canvas>
+<div class="relative z-10 w-full max-w-2xl mx-auto px-4 sm:px-6 py-8 sm:py-14 space-y-16 sm:space-y-24">
+<!-- ============================================================ -->
+<!-- SECTION 1: HERO INVITATION CARD                             -->
+<!-- ============================================================ -->
+<section class="reveal relative bg-white/90 backdrop-blur-md rounded-3xl border border-[#e5d4bc] shadow-[0_20px_60px_rgba(184,144,82,0.12)] p-6 sm:p-12 luxury-card-border overflow-hidden active">
+<!-- Vintage corner decors -->
+<div aria-hidden="true" class="corner-decor corner-tl"></div>
+<div aria-hidden="true" class="corner-decor corner-tr"></div>
+<div aria-hidden="true" class="corner-decor corner-bl"></div>
+<div aria-hidden="true" class="corner-decor corner-br"></div>
+<!-- Top Header Branding -->
+<header class="text-center pt-2 mb-6 sm:mb-8">
+<div class="inline-flex items-center gap-3 sm:gap-4">
+<span aria-hidden="true" class="w-8 sm:w-14 h-px bg-gradient-to-r from-transparent via-brand-gold to-brand-goldDark"></span>
+<span class="font-display tracking-[0.28em] sm:tracking-[0.34em] text-xs sm:text-sm font-semibold uppercase text-brand-goldDark">
+            Education Agency
+          </span>
+<span aria-hidden="true" class="w-8 sm:w-14 h-px bg-gradient-to-l from-transparent via-brand-gold to-brand-goldDark"></span>
+</div>
+</header>
+<!-- Main Headline -->
+<div class="text-center mb-8 sm:mb-10">
+<h1 class="text-3xl sm:text-4xl md:text-5xl font-medium tracking-tight text-brand-charcoal leading-tight sm:leading-snug">
+          Սիրով սպասում ենք
+        </h1>
+<div class="flex items-center justify-center gap-3 mt-3 sm:mt-4 opacity-75">
+<span class="w-12 h-px bg-gradient-to-r from-transparent to-brand-gold"></span>
+<span class="text-brand-gold text-xs">✦</span>
+<span class="w-12 h-px bg-gradient-to-l from-transparent to-brand-gold"></span>
+</div>
+</div>
+<!-- Lavish Date & Time Container -->
+<div class="flex items-center justify-center gap-5 sm:gap-8 bg-gradient-to-b from-[#fbf8f2] to-[#f5eedf] border border-[#d8c09d] rounded-2xl py-4 sm:py-5 px-6 sm:px-10 max-w-fit mx-auto shadow-sm">
+<div class="text-center">
+<span class="block text-[11px] font-sans uppercase tracking-widest text-brand-muted font-medium mb-0.5">Ամսաթիվ</span>
+<span class="font-display text-2xl sm:text-3xl font-bold tracking-wider text-brand-goldDark">04.10.2026</span>
+</div>
+<div aria-hidden="true" class="w-px h-10 bg-brand-gold/30"></div>
+<div class="text-center">
+<span class="block text-[11px] font-sans uppercase tracking-widest text-brand-muted font-medium mb-0.5">Ժամ</span>
+<span class="font-display text-2xl sm:text-3xl font-bold tracking-wider text-brand-goldDark">17։00</span>
+</div>
+</div>
+<!-- Address Box -->
+<div class="text-center mt-6 sm:mt-7">
+<address class="not-italic inline-flex items-center justify-center gap-2.5 px-5 py-2.5 rounded-full bg-[#f8f4ed] border border-brand-gold/25 text-brand-charcoal font-medium text-sm sm:text-base shadow-sm">
+<svg aria-hidden="true" class="w-4 h-4 text-brand-gold flex-shrink-0" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+<circle cx="12" cy="10" r="3"></circle>
+</svg>
+<span class="">Առնո Բաբաջանյան 163/1</span>
+</address>
+</div>
+<!-- Action Buttons (Calendar & Map) -->
+<div class="flex flex-wrap items-center justify-center gap-3 sm:gap-4 mt-7 sm:mt-9">
+<button class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-brand-gold text-brand-goldDark hover:text-white border border-brand-gold/40 text-xs sm:text-sm font-sans font-medium transition-all duration-300 shadow-sm hover:shadow-[0_4px_16px_rgba(184,144,82,0.25)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50" id="calendar-btn" type="button">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<rect height="18" rx="2" ry="2" width="18" x="3" y="4"></rect>
+<line x1="16" x2="16" y1="2" y2="6"></line>
+<line x1="8" x2="8" y1="2" y2="6"></line>
+<line x1="3" x2="21" y1="10" y2="10"></line>
+</svg>
+<span class="">Ավելացնել օրացույցում</span>
+</button>
+<a class="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white hover:bg-brand-gold text-brand-goldDark hover:text-white border border-brand-gold/40 text-xs sm:text-sm font-sans font-medium transition-all duration-300 shadow-sm hover:shadow-[0_4px_16px_rgba(184,144,82,0.25)] hover:-translate-y-0.5 focus:outline-none focus:ring-2 focus:ring-brand-gold/50" href="https://maps.google.com/?q=Arno+Babajanyan+163/1+Yerevan" rel="noopener noreferrer" target="_blank">
+<svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"></polygon>
+<line x1="8" x2="8" y1="2" y2="18"></line>
+<line x1="16" x2="16" y1="6" y2="22"></line>
+</svg>
+<span class="">Քարտեզ</span>
+</a>
+</div>
+<!-- Scroll Down Guidance Indicator -->
+<div class="mt-10 sm:mt-12 flex flex-col items-center justify-center text-center opacity-70 hover:opacity-100 transition-opacity">
+<a aria-label="Ոլորեք ներքև" class="group flex flex-col items-center gap-1.5 focus:outline-none" href="#visual-break-1">
+<span class="font-sans text-[11px] uppercase tracking-[0.25em] text-brand-muted group-hover:text-brand-goldDark transition-colors">Ոլորեք ներքև</span>
+<div class="bounce-indicator text-brand-gold">
+<svg class="w-5 h-5 stroke-[2]" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" viewBox="0 0 24 24">
+<polyline points="6 9 12 15 18 9"></polyline>
+</svg>
+</div>
+</a>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- SECTION 2: VISUAL BREAK 1 - ACADEMIC LUXURY ARTWORK          -->
+<!-- ============================================================ -->
+<section class="reveal relative active" id="visual-break-1">
+<div class="relative overflow-hidden rounded-3xl border-2 border-[#dec6a1] shadow-[0_16px_45px_rgba(184,144,82,0.14)] group bg-[#f7f2e7]">
+<!-- Ornate double-border accent -->
+<div class="absolute inset-2 border border-brand-gold/30 rounded-[20px] pointer-events-none z-10"></div>
+<!-- Image with subtle vignette & micro zoom on hover -->
+<div class="relative aspect-[16/9] w-full overflow-hidden">
+<img alt="Education Agency grand celebratory artwork" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA5qKgdl1aObSKrjSp3W0lRmisqQv6tZdt_pjjDqS_0jzJdEmoKkziUIdpckUKPopPQKXY8F6Kgz8dLCUTH2a4KU-uAznHUwgHLr0tOP6V2wrb_7ZG_-uBZYwTapmh3MUOLUvdvFN8JOTqGHtiv70nCDZPpVFUTzrO2OjxwYcrJK7whft4vYNGz4skZRI7U49JL0kPQle7m_CdMqwsGLs45W5WaSK7BdAdREP8O6A">
+<!-- Soft luxury lighting gradients -->
+<div class="absolute inset-0 bg-gradient-to-t from-[#2d2720]/30 via-transparent to-[#fcfaf6]/10 pointer-events-none"></div>
+<div class="absolute inset-0 ring-1 ring-inset ring-brand-gold/30 rounded-3xl pointer-events-none"></div>
+</div>
+<!-- Delicate bottom caption tag -->
+<div class="absolute bottom-3 left-1/2 -translate-x-1/2 z-20 px-4 py-1 rounded-full bg-white/85 backdrop-blur-sm border border-brand-gold/30 shadow-sm">
+<span class="font-display tracking-[0.25em] text-[10px] uppercase font-semibold text-brand-goldDark">Education Agency · 2026</span>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- SECTION 3: EVENT PROGRAM - ՄԵԶ ՍՊԱՍՎՈՒՄ Է                   -->
+<!-- ============================================================ -->
+<section aria-labelledby="program-headline" class="reveal relative active">
+<!-- Section Header -->
+<div class="text-center mb-10 sm:mb-12">
+<div class="inline-flex items-center gap-3 mb-2">
+<span class="w-10 h-px bg-gradient-to-r from-transparent to-brand-gold"></span>
+<span class="text-brand-gold font-serif">✦ ✦ ✦</span>
+<span class="w-10 h-px bg-gradient-to-l from-transparent to-brand-gold"></span>
+</div>
+<h2 class="text-2xl sm:text-3xl md:text-4xl font-semibold text-brand-charcoal tracking-tight" id="program-headline">
+          Մեզ սպասվում է
+        </h2>
+<p class="font-sans text-xs sm:text-sm text-brand-muted mt-2 tracking-wide">Բացառիկ տոնական ծրագիր մեր բոլոր հյուրերի համար</p>
+</div>
+<!-- Event Highlights List / Cards -->
+<div class="grid grid-cols-1 gap-3.5 sm:gap-4">
+<!-- Item 1 -->
+<div class="reveal stagger-1 group relative flex items-center gap-4 bg-white/95 rounded-2xl p-4 sm:p-5 border border-[#e8ddcc] shadow-sm hover:shadow-[0_10px_25px_rgba(184,144,82,0.12)] hover:border-brand-goldLight transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#fbf8f2] to-[#ede3d1] border border-brand-gold/30 flex items-center justify-center text-brand-goldDark flex-shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-colors duration-300">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-base sm:text-lg font-medium text-brand-charcoal leading-snug">Տպավորիչ շոու ծրագիր</h3>
+</div>
+<div class="opacity-0 group-hover:opacity-100 text-brand-gold text-xs transition-opacity pr-2 font-display">✦</div>
+</div>
+<!-- Item 2 -->
+<div class="reveal stagger-2 group relative flex items-center gap-4 bg-white/95 rounded-2xl p-4 sm:p-5 border border-[#e8ddcc] shadow-sm hover:shadow-[0_10px_25px_rgba(184,144,82,0.12)] hover:border-brand-goldLight transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#fbf8f2] to-[#ede3d1] border border-brand-gold/30 flex items-center justify-center text-brand-goldDark flex-shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-colors duration-300">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
+<path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"></path>
+<line x1="6" x2="6" y1="1" y2="4"></line>
+<line x1="10" x2="10" y1="1" y2="4"></line>
+<line x1="14" x2="14" y1="1" y2="4"></line>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-base sm:text-lg font-medium text-brand-charcoal leading-snug">Համեղ ֆուրշետ</h3>
+</div>
+<div class="opacity-0 group-hover:opacity-100 text-brand-gold text-xs transition-opacity pr-2 font-display">✦</div>
+</div>
+<!-- Item 3 -->
+<div class="reveal stagger-3 group relative flex items-center gap-4 bg-white/95 rounded-2xl p-4 sm:p-5 border border-[#e8ddcc] shadow-sm hover:shadow-[0_10px_25px_rgba(184,144,82,0.12)] hover:border-brand-goldLight transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#fbf8f2] to-[#ede3d1] border border-brand-gold/30 flex items-center justify-center text-brand-goldDark flex-shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-colors duration-300">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<circle cx="12" cy="12" r="10"></circle>
+<path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+<line x1="9" x2="9.01" y1="9" y2="9"></line>
+<line x1="15" x2="15.01" y1="9" y2="9"></line>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-base sm:text-lg font-medium text-brand-charcoal leading-snug">Սիրելի մուլտհերոսների մասնակցություն</h3>
+</div>
+<div class="opacity-0 group-hover:opacity-100 text-brand-gold text-xs transition-opacity pr-2 font-display">✦</div>
+</div>
+<!-- Item 4 -->
+<div class="reveal stagger-4 group relative flex items-center gap-4 bg-white/95 rounded-2xl p-4 sm:p-5 border border-[#e8ddcc] shadow-sm hover:shadow-[0_10px_25px_rgba(184,144,82,0.12)] hover:border-brand-goldLight transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-[#fbf8f2] to-[#ede3d1] border border-brand-gold/30 flex items-center justify-center text-brand-goldDark flex-shrink-0 group-hover:bg-brand-gold group-hover:text-white transition-colors duration-300">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24">
+<polyline points="20 12 20 22 4 22 4 12"></polyline>
+<rect height="5" width="20" x="2" y="7"></rect>
+<line x1="12" x2="12" y1="22" y2="7"></line>
+<path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+<path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<h3 class="text-base sm:text-lg font-medium text-brand-charcoal leading-snug">Անակնկալ նվերներ</h3>
+</div>
+<div class="opacity-0 group-hover:opacity-100 text-brand-gold text-xs transition-opacity pr-2 font-display">✦</div>
+</div>
+<!-- Highlight Item 5: Grand prize lottery -->
+<div class="reveal stagger-5 group relative flex items-center gap-4 bg-gradient-to-r from-[#fefbf6] to-[#f8f1e3] rounded-2xl p-4 sm:p-5 border-2 border-brand-gold/40 shadow-sm hover:shadow-[0_12px_30px_rgba(184,144,82,0.18)] hover:border-brand-gold transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-brand-goldLight to-brand-gold text-white flex items-center justify-center flex-shrink-0 shadow-md">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<circle cx="12" cy="8" r="7"></circle>
+<polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-gold/15 text-[10px] font-sans font-semibold uppercase text-brand-goldDark tracking-wider mb-1">
+              Գլխավոր իրադարձություն
+            </div>
+<h3 class="text-base sm:text-lg font-semibold text-brand-charcoal leading-snug">Խաղարկություն՝ գլխավոր մրցանակով</h3>
+</div>
+<div class="text-brand-gold text-sm sm:text-base font-semibold pr-1">★</div>
+</div>
+<!-- Highlight Item 6: Educational award prize -->
+<div class="reveal stagger-6 group relative flex items-center gap-4 bg-gradient-to-r from-[#fefbf6] to-[#f8f1e3] rounded-2xl p-4 sm:p-5 border-2 border-brand-gold/40 shadow-sm hover:shadow-[0_12px_30px_rgba(184,144,82,0.18)] hover:border-brand-gold transition-all duration-300 transform hover:-translate-y-1 active">
+<div class="w-11 h-11 sm:w-12 sm:h-12 rounded-xl bg-gradient-to-br from-brand-goldLight to-brand-gold text-white flex items-center justify-center flex-shrink-0 shadow-md">
+<svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" viewBox="0 0 24 24">
+<path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+<path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+</svg>
+</div>
+<div class="flex-1 min-w-0">
+<div class="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-full bg-brand-gold/15 text-[10px] font-sans font-semibold uppercase text-brand-goldDark tracking-wider mb-1">
+              Հատուկ մրցանակ
+            </div>
+<h3 class="text-base sm:text-lg font-semibold text-brand-charcoal leading-snug">Հաղթողին՝ անվճար 1-ամսյա դասընթաց մեր կրթական կենտրոնում</h3>
+</div>
+<div class="text-brand-gold text-sm sm:text-base font-semibold pr-1">★</div>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- SECTION 4: VISUAL BREAK 2 - CELEBRATION ATMOSPHERE           -->
+<!-- ============================================================ -->
+<section class="reveal relative active">
+<div class="relative overflow-hidden rounded-3xl border-2 border-[#dec6a1] shadow-[0_20px_50px_rgba(184,144,82,0.16)] group bg-[#f5ede1]">
+<!-- Inner decorative ring -->
+<div class="absolute inset-2 border border-brand-gold/30 rounded-[20px] pointer-events-none z-10"></div>
+<!-- Visual with gold festive lights and balloons -->
+<div class="relative aspect-[16/9] w-full overflow-hidden">
+<img alt="Luxury celebratory balloon atmosphere with sparkling warm champagne bokeh" class="w-full h-full object-cover object-center transform group-hover:scale-105 transition-transform duration-1000 ease-out" loading="lazy" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBdVhBFvk8t-Qv3Fy8h8n6G7DGWn9vnO9AbO-bpAlMGxgfvJvCmf0Dw1mSOlf0ghdmSQ_MlXymd2GC4jBK2HMAS14VkzGtpV9C9BtJu46v5bmBTNLmwcF5PV3oxk8METUJQbJHoOUoj8eQQh99_kNzfoxu6_Ya1Iea1kaFNOsWyQTT7zlIwzwhZuij7SkQkWQBMbmFeLStm-KqPcSsSFm14tkL5_YsRHc8yo2Djbw">
+<div class="absolute inset-0 bg-gradient-to-t from-[#2d2720]/45 via-transparent to-[#fcfaf6]/15 pointer-events-none"></div>
+</div>
+<!-- Ambient overlay quote strip -->
+<div class="absolute bottom-4 inset-x-4 z-20 text-center">
+<div class="inline-block px-5 py-2 rounded-full bg-white/90 backdrop-blur-md border border-brand-gold/35 shadow-sm">
+<span class="text-xs sm:text-sm font-medium text-brand-goldDark tracking-wider font-serifAm">
+              Տոնական շքեղ մթնոլորտ
+            </span>
+</div>
+</div>
+</div>
+</section>
+<!-- ============================================================ -->
+<!-- SECTION 5: FINAL INSPIRATIONAL QUOTE & SIGNATURES            -->
+<!-- ============================================================ -->
+<section class="reveal relative bg-white/95 backdrop-blur-md rounded-3xl border border-[#e5d4bc] shadow-[0_20px_60px_rgba(184,144,82,0.12)] p-6 sm:p-12 luxury-card-border active">
+<!-- Corners -->
+<div aria-hidden="true" class="corner-decor corner-tl"></div>
+<div aria-hidden="true" class="corner-decor corner-tr"></div>
+<div aria-hidden="true" class="corner-decor corner-bl"></div>
+<div aria-hidden="true" class="corner-decor corner-br"></div>
+<!-- Inspiring Quote Box -->
+<div class="relative max-w-xl mx-auto text-center px-4 py-8 sm:py-10 bg-gradient-to-b from-[#fbf8f2] to-[#f7f0e3] rounded-2xl border border-brand-gold/30 shadow-sm mb-10">
+<span class="text-3xl font-display text-brand-gold/40 block -mb-2">“</span>
+<blockquote class="text-base sm:text-xl md:text-2xl italic font-normal text-brand-charcoal leading-relaxed sm:leading-loose">
+          «Սիրով սպասում ենք Ձեզ՝ միասին վայելելու այս գեղեցիկ ու հիշարժան օրը։»
+        </blockquote>
+<span class="text-3xl font-display text-brand-gold/40 block -mt-2">”</span>
+</div>
+<!-- Divider -->
+<div class="flex items-center justify-center gap-3 mb-8 opacity-75">
+<span class="w-16 h-px bg-gradient-to-r from-transparent to-brand-gold"></span>
+<span class="text-brand-gold text-xs">◆</span>
+<span class="w-16 h-px bg-gradient-to-l from-transparent to-brand-gold"></span>
+</div>
+<!-- Signatures Area -->
+<footer aria-label="Հրավիրողներ" class="text-center">
+<p class="font-sans text-xs uppercase tracking-[0.25em] text-brand-muted font-semibold mb-6">
+          Հարգանքով՝
+        </p>
+<!-- Names Grid -->
+<div class="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-lg sm:text-xl font-semibold text-brand-goldDark">
+<span class="hover:text-brand-gold transition-colors">Աիդա Ավետիսյան</span>
+<span aria-hidden="true" class="hidden sm:inline text-brand-goldLight text-xs opacity-60">◆</span>
+<span class="hover:text-brand-gold transition-colors">Թամարա Սաֆարյան</span>
+<span aria-hidden="true" class="hidden sm:inline text-brand-goldLight text-xs opacity-60">◆</span>
+<span class="hover:text-brand-gold transition-colors">Հռիփի Ավետիսյան</span>
+</div>
+<!-- Ornamental Seal / Monogram Badge -->
+<div class="mt-12 sm:mt-14 flex flex-col items-center">
+<div class="pulse-monogram w-16 h-16 sm:w-18 sm:h-18 rounded-full bg-gradient-to-br from-[#fcf9f2] via-[#f7ecd9] to-[#ebdcc2] border-2 border-brand-gold/60 flex items-center justify-center shadow-md">
+<span class="font-display font-bold text-lg sm:text-xl text-brand-goldDark tracking-widest">EA</span>
+</div>
+<span class="font-display text-[10px] uppercase tracking-[0.3em] text-brand-gold mt-3 font-semibold">
+            Education Agency · Yerevan
+          </span>
+</div>
+<div class="mt-6 pt-4 border-t border-brand-gold/25 max-w-xs mx-auto text-center"><p class="font-serifAm text-sm sm:text-base font-medium tracking-wide text-brand-goldDark">«ԳԳ Սպորտային Ակումբ»</p></div></footer>
+</section>
+</div>
+<!-- ============================================================ -->
+<!-- JAVASCRIPT: PARTICLES, SCROLL REVEAL & ICALENDAR DOWNLOAD    -->
+<!-- ============================================================ -->
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+      // 1. Intersection Observer for Scroll Reveals
+      var revealElements = document.querySelectorAll('.reveal');
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('active');
+          }
+        });
+      }, {
+        threshold: 0.08,
+        rootMargin: '0px 0px -40px 0px'
+      });
 
-    <div class="card">
-        <div class="top-badge">You Are Invited To</div>
-        <div class="main-title">Education.agency</div>
-        <div class="divider"></div>
-        
-        <div class="subtitle">Սիրով սպասում ենք</div>
-        
-        <div class="details-grid">
-            <div class="detail-item">
-                <div class="detail-label">ԱՄՍԱԹԻՎ</div>
-                <div class="detail-value">04.10.26</div>
-            </div>
-            <div class="detail-item">
-                <div class="detail-label">ԺԱՄ</div>
-                <div class="detail-value">17:00</div>
-            </div>
-        </div>
-        
-        <div class="address-box">
-            <div class="detail-label" style="margin-bottom: 6px;">ՀԱՍՑԵ</div>
-            <div class="address-text">ԱՌՆՈ ԲԱԲԱՋԱՆՅԱՆ 163/1</div>
-        </div>
-        
-        <div class="guests-box">
-            <div class="guests-title">ՀՐԱՎԻՐՅԱԼՆԵՐ</div>
-            <div class="guest-name">Աիդա Ավետիսյան</div>
-            <div class="guest-name">Թամարա Սաֆարյան</div>
-            <div class="guest-name">Հռիփի Ավետիսյան</div>
-        </div>
-        
-        <div class="program-box">
-            <div class="program-title">Մեզ սպասվում է ✨</div>
-            <div class="program-item"><span>🎭</span> Տպավորիչ շոու ծրագիր</div>
-            <div class="program-item"><span>🥂</span> Համեղ ֆուրշետ</div>
-            <div class="program-item"><span>🎈</span> Սիրելի մուլտհերոսների մասնակցություն</div>
-            <div class="program-item"><span>🎁</span> Անակնկալ նվերներ</div>
-            <div class="program-item"><span>🎉</span> Խաղարկություն՝ գլխավոր մրցանակով</div>
-            <div class="program-item"><span>🏆</span> Հաղթողին՝ անվճար 1-ամսյա դասընթաց մեր կրթական կենտրոնում</div>
-            
-            <div class="closing-text">
-                Սիրով սպասում ենք Ձեզ՝ միասին վայելելու այս գեղեցիկ ու հիշարժան օրը։ 🤍
-            </div>
-        </div>
-        
-        <div class="footer">ԳԳ ՍՊՈՐՏԱՅԻՆ ԱԿՈՒՄԲ</div>
-    </div>
+      revealElements.forEach(function (el) {
+        observer.observe(el);
+      });
 
-</body>
-</html>
+      // 2. Add to Calendar (iCalendar .ics generator)
+      var calBtn = document.getElementById('calendar-btn');
+      if (calBtn) {
+        calBtn.addEventListener('click', function () {
+          var icsData = [
+            'BEGIN:VCALENDAR',
+            'VERSION:2.0',
+            'PRODID:-//Education Agency//Armenia Event Invitation//HY',
+            'CALSCALE:GREGORIAN',
+            'METHOD:PUBLISH',
+            'BEGIN:VEVENT',
+            'UID:edu-agency-invitation-20261004@agency.am',
+            'DTSTAMP:20261004T130000Z',
+            'DTSTART:20261004T130000Z',
+            'DTEND:20261004T160000Z',
+            'SUMMARY:Education Agency Հրավեր',
+            'DESCRIPTION:Սիրով սպասում ենք Ձեզ՝ միասին վայելելու այս գեղեցիկ ու հիշարժան օրը։ Տպավորիչ շոու ծրագիր, համեղ ֆուրշետ, սիրելի մուլտհերոսներ և խաղարկություն:',
+            'LOCATION:Առնո Բաբաջանյան 163/1, Երևան',
+            'STATUS:CONFIRMED',
+            'END:VEVENT',
+            'END:VCALENDAR'
+          ].join('\r\n');
+
+          var blob = new Blob([icsData], { type: 'text/calendar;charset=utf-8;' });
+          var url = window.URL.createObjectURL(blob);
+          var a = document.createElement('a');
+          a.href = url;
+          a.download = 'Education_Agency_Invitation.ics';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        });
+      }
+
+      // 3. Subtle Luxury Golden Ambient Dust System
+      var canvas = document.getElementById('particles-canvas');
+      if (canvas && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        var ctx = canvas.getContext('2d');
+        var particles = [];
+        var w, h;
+
+        function updateDimensions() {
+          w = canvas.width = window.innerWidth;
+          h = canvas.height = window.innerHeight;
+        }
+        window.addEventListener('resize', updateDimensions);
+        updateDimensions();
+
+        var particleTotal = window.innerWidth < 640 ? 25 : 45;
+        for (var i = 0; i < particleTotal; i++) {
+          particles.push({
+            x: Math.random() * w,
+            y: Math.random() * h,
+            r: Math.random() * 2 + 0.8,
+            speedY: -(Math.random() * 0.35 + 0.15),
+            speedX: (Math.random() - 0.5) * 0.2,
+            opacity: Math.random() * 0.45 + 0.12,
+            osc: Math.random() * 6.28,
+            oscStep: Math.random() * 0.02 + 0.01
+          });
+        }
+
+        function render() {
+          ctx.clearRect(0, 0, w, h);
+          for (var j = 0; j < particles.length; j++) {
+            var p = particles[j];
+            p.y += p.speedY;
+            p.osc += p.oscStep;
+            p.x += Math.sin(p.osc) * 0.25;
+
+            if (p.y < -10) {
+              p.y = h + 10;
+              p.x = Math.random() * w;
+            }
+
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+            ctx.fillStyle = 'rgba(184, 144, 82, ' + p.opacity + ')';
+            ctx.fill();
+          }
+          requestAnimationFrame(render);
+        }
+        render();
+      }
+    });
+  </script>
+
+
+</body></html>
