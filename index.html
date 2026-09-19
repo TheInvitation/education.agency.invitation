@@ -1,397 +1,75 @@
-<!DOCTYPE html>
-<html lang="hy">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Education.agency — Invitation</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Armenian:wght@300;400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Great+Vibes&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --blush-1: #fff5f1;
-    --blush-2: #fde8e0;
-    --blush-3: #f9d5c7;
-    --rose: #e8a598;
-    --rose-deep: #c97b6b;
-    --ink: #5a3a32;
-    --gold: #c9a96a;
-  }
-
-  * { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
-
-  body {
-    font-family: 'Noto Sans Armenian', 'Cormorant Garamond', serif;
-    background: linear-gradient(135deg, #fff5f1 0%, #fde8e0 40%, #fce4ec 70%, #fff0eb 100%);
-    min-height: 100vh;
-    color: var(--ink);
-    overflow-x: hidden;
-    position: relative;
-  }
-
-  /* Soft floating decorative blobs */
-  body::before, body::after {
-    content: '';
-    position: fixed;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.5;
-    z-index: 0;
-    pointer-events: none;
-  }
-  body::before {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, #f9c5bd 0%, transparent 70%);
-    top: -100px; left: -100px;
-  }
-  body::after {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, #fbd5c8 0%, transparent 70%);
-    bottom: -150px; right: -150px;
-  }
-
-  .font-script { font-family: 'Great Vibes', cursive; }
-  .font-serif-elegant { font-family: 'Cormorant Garamond', serif; }
-  .font-armenian { font-family: 'Noto Sans Armenian', sans-serif; }
-
-  .card {
-    background: linear-gradient(180deg, rgba(255,255,255,0.85) 0%, rgba(255,245,240,0.9) 100%);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
-    border: 1px solid rgba(255,255,255,0.8);
-    box-shadow:
-      0 30px 80px -20px rgba(201, 123, 107, 0.25),
-      0 10px 30px -10px rgba(201, 123, 107, 0.15),
-      inset 0 1px 0 rgba(255,255,255,0.9);
-  }
-
-  .divider {
-    height: 1px;
-    background: linear-gradient(90deg, transparent 0%, var(--rose) 50%, transparent 100%);
-    opacity: 0.4;
-  }
-
-  .divider-ornate {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-  }
-  .divider-ornate::before, .divider-ornate::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, var(--rose), transparent);
-    opacity: 0.4;
-  }
-
-  .icon-circle {
-    width: 52px; height: 52px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #fff 0%, #fde8e0 100%);
-    border: 1px solid rgba(232, 165, 152, 0.3);
-    display: flex; align-items: center; justify-content: center;
-    box-shadow: 0 4px 12px rgba(201, 123, 107, 0.12);
-    flex-shrink: 0;
-  }
-
-  .name-pill {
-    background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(253,232,224,0.6) 100%);
-    border: 1px solid rgba(232, 165, 152, 0.25);
-    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .name-pill:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 25px -5px rgba(201, 123, 107, 0.2);
-    border-color: rgba(232, 165, 152, 0.5);
-  }
-
-  .title-gradient {
-    background: linear-gradient(135deg, #c97b6b 0%, #e8a598 50%, #c9a96a 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-
-  /* Floating decorative elements */
-  .float-deco {
-    position: absolute;
-    opacity: 0.5;
-    animation: floaty 6s ease-in-out infinite;
-    pointer-events: none;
-  }
-  @keyframes floaty {
-    0%, 100% { transform: translateY(0) rotate(0deg); }
-    50% { transform: translateY(-12px) rotate(5deg); }
-  }
-  .float-deco.delay-1 { animation-delay: -2s; }
-  .float-deco.delay-2 { animation-delay: -4s; }
-
-  .corner-ornament {
-    position: absolute;
-    width: 80px; height: 80px;
-    opacity: 0.35;
-  }
-
-  .badge {
-    background: linear-gradient(135deg, var(--rose-deep) 0%, var(--rose) 100%);
-    color: white;
-    box-shadow: 0 6px 20px -4px rgba(201, 123, 107, 0.5);
-  }
-
-  .sparkle {
-    position: absolute;
-    width: 6px; height: 6px;
-    background: var(--gold);
-    border-radius: 50%;
-    opacity: 0.6;
-    animation: twinkle 3s ease-in-out infinite;
-  }
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.2; transform: scale(0.8); }
-    50% { opacity: 0.8; transform: scale(1.2); }
-  }
-</style>
+line-height: 1.5;
+            display: flex;
+            align-items: flex-start;
+        }
+        .program-item span {
+            margin-right: 8px;
+        }
+        .closing-text {
+            font-size: 13px;
+            color: #6e5d53;
+            text-align: center;
+            margin-top: 15px;
+            line-height: 1.6;
+            font-style: italic;
+        }
+        .footer {
+            font-size: 11px;
+            letter-spacing: 2px;
+            color: #bfaea2;
+            text-transform: uppercase;
+            margin-top: 10px;
+        }
+    </style>
 </head>
-<body class="flex items-center justify-center p-4 py-10">
+<body>
 
-  <div class="relative w-full max-w-lg mx-auto">
-
-    <!-- Main Card -->
-    <div class="card relative rounded-[32px] p-8 sm:p-10 overflow-hidden">
-
-      <!-- Corner ornaments -->
-      <svg class="corner-ornament top-4 left-4" viewBox="0 0 100 100" fill="none">
-        <path d="M5 5 Q 5 50, 50 50 Q 5 50, 5 95" stroke="#c97b6b" stroke-width="1" fill="none" opacity="0.5"/>
-        <circle cx="5" cy="5" r="3" fill="#c97b6b" opacity="0.6"/>
-        <circle cx="50" cy="50" r="2" fill="#c9a96a" opacity="0.7"/>
-      </svg>
-      <svg class="corner-ornament top-4 right-4" style="transform: scaleX(-1);" viewBox="0 0 100 100" fill="none">
-        <path d="M5 5 Q 5 50, 50 50 Q 5 50, 5 95" stroke="#c97b6b" stroke-width="1" fill="none" opacity="0.5"/>
-        <circle cx="5" cy="5" r="3" fill="#c97b6b" opacity="0.6"/>
-        <circle cx="50" cy="50" r="2" fill="#c9a96a" opacity="0.7"/>
-      </svg>
-      <svg class="corner-ornament bottom-4 left-4" style="transform: scaleY(-1);" viewBox="0 0 100 100" fill="none">
-        <path d="M5 5 Q 5 50, 50 50 Q 5 50, 5 95" stroke="#c97b6b" stroke-width="1" fill="none" opacity="0.5"/>
-        <circle cx="5" cy="5" r="3" fill="#c97b6b" opacity="0.6"/>
-      </svg>
-      <svg class="corner-ornament bottom-4 right-4" style="transform: scale(-1,-1);" viewBox="0 0 100 100" fill="none">
-        <path d="M5 5 Q 5 50, 50 50 Q 5 50, 5 95" stroke="#c97b6b" stroke-width="1" fill="none" opacity="0.5"/>
-        <circle cx="5" cy="5" r="3" fill="#c97b6b" opacity="0.6"/>
-      </svg>
-
-      <!-- Sparkles -->
-      <div class="sparkle" style="top: 15%; left: 10%;"></div>
-      <div class="sparkle" style="top: 25%; right: 12%; animation-delay: -1s;"></div>
-      <div class="sparkle" style="top: 55%; left: 8%; animation-delay: -2s;"></div>
-      <div class="sparkle" style="top: 70%; right: 10%; animation-delay: -1.5s;"></div>
-
-      <!-- Floating decorative icons -->
-      <svg class="float-deco top-6 right-20 w-8 h-8" viewBox="0 0 24 24" fill="none">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" fill="#e8a598" opacity="0.7"/>
-      </svg>
-      <svg class="float-deco delay-1 bottom-24 left-16 w-7 h-7" viewBox="0 0 24 24" fill="none">
-        <path d="M12 2L9.5 9.5 2 12l7.5 2.5L12 22l2.5-7.5L22 12l-7.5-2.5z" fill="#c9a96a" opacity="0.6"/>
-      </svg>
-      <svg class="float-deco delay-2 top-40 left-6 w-6 h-6" viewBox="0 0 24 24" fill="none">
-        <circle cx="12" cy="12" r="10" stroke="#c97b6b" stroke-width="1.5" opacity="0.5"/>
-        <path d="M2 12h20M12 2a15 15 0 0 1 0 20M12 2a15 15 0 0 0 0 20" stroke="#c97b6b" stroke-width="1" opacity="0.5" fill="none"/>
-      </svg>
-
-      <!-- Content -->
-      <div class="relative z-10 flex flex-col items-center text-center">
-
-        <!-- Top small label -->
-        <div class="flex items-center gap-2 mb-5">
-          <span class="w-8 h-px bg-[#c97b6b] opacity-40"></span>
-          <span class="font-armenian text-[10px] sm:text-[11px] tracking-[0.3em] text-[#c97b6b] font-medium uppercase">
-            You are invited to
-          </span>
-          <span class="w-8 h-px bg-[#c97b6b] opacity-40"></span>
-        </div>
-
-        <!-- Decorative top icons row -->
-        <div class="flex items-center justify-center gap-3 mb-6 opacity-80">
-          <!-- Book icon -->
-          <svg class="w-5 h-5 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20" stroke-linecap="round"/>
-            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z" stroke-linejoin="round"/>
-          </svg>
-          <!-- Pencil icon -->
-          <svg class="w-5 h-5 text-[#c9a96a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 20h9M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" stroke-linejoin="round"/>
-          </svg>
-          <!-- Teddy bear icon -->
-          <svg class="w-5 h-5 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="13" r="6"/>
-            <circle cx="7" cy="8" r="2.5"/>
-            <circle cx="17" cy="8" r="2.5"/>
-            <circle cx="10" cy="12" r="0.5" fill="currentColor"/>
-            <circle cx="14" cy="12" r="0.5" fill="currentColor"/>
-            <path d="M10 15 q2 1.5 4 0" stroke-linecap="round"/>
-          </svg>
-          <!-- Globe icon -->
-          <svg class="w-5 h-5 text-[#c9a96a]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <circle cx="12" cy="12" r="9"/>
-            <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" stroke-linejoin="round"/>
-          </svg>
-          <!-- Heart icon -->
-          <svg class="w-5 h-5 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" stroke-linejoin="round"/>
-          </svg>
-        </div>
-
-        <!-- Main Title -->
-        <h1 class="font-serif-elegant text-5xl sm:text-6xl font-medium title-gradient leading-none mb-2 tracking-tight">
-          Education<span class="font-light">.</span>agency
-        </h1>
-
-        <!-- Armenian Subtitle -->
-        <p class="font-armenian text-xl sm:text-2xl text-[#5a3a32] font-medium mt-4 mb-6 tracking-wide">
-          Սիրով սպասում ենք
-        </p>
-
-        <!-- Ornate divider -->
-        <div class="divider-ornate w-full my-2">
-          <svg class="w-4 h-4 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l2.09 6.26L20 9.27l-4.5 4.39L16.18 20 12 16.77 7.82 20l.68-6.34L4 9.27l5.91-1.01z"/>
-          </svg>
-        </div>
-
-        <!-- Info blocks -->
-        <div class="w-full space-y-4 my-8">
-
-          <!-- Date -->
-          <div class="flex items-center justify-center gap-4">
-            <div class="icon-circle">
-              <svg class="w-6 h-6 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="4" width="18" height="18" rx="2"/>
-                <path d="M16 2v4M8 2v4M3 10h18" stroke-linecap="round"/>
-                <circle cx="8" cy="15" r="0.8" fill="currentColor"/>
-                <circle cx="12" cy="15" r="0.8" fill="currentColor"/>
-                <circle cx="16" cy="15" r="0.8" fill="currentColor"/>
-              </svg>
+    <div class="card">
+        <div class="top-badge">You Are Invited To</div>
+        <div class="main-title">Education.agency</div>
+        <div class="divider"></div>
+        
+        <div class="subtitle">Սիրով սպասում ենք</div>
+        
+        <div class="details-grid">
+            <div class="detail-item">
+                <div class="detail-label">ԱՄՍԱԹԻՎ</div>
+                <div class="detail-value">04.10.26</div>
             </div>
-            <div class="text-left">
-              <div class="font-armenian text-[10px] tracking-[0.25em] text-[#c97b6b] uppercase mb-0.5">Date</div>
-              <div class="font-serif-elegant text-2xl font-medium text-[#5a3a32] tracking-wide">04.10.26</div>
+            <div class="detail-item">
+                <div class="detail-label">ԺԱՄ</div>
+                <div class="detail-value">17:00</div>
             </div>
-          </div>
-
-          <!-- Time -->
-          <div class="flex items-center justify-center gap-4">
-            <div class="icon-circle">
-              <svg class="w-6 h-6 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <circle cx="12" cy="12" r="9"/>
-                <path d="M12 7v5l3 2" stroke-linecap="round" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="text-left">
-              <div class="font-armenian text-[10px] tracking-[0.25em] text-[#c97b6b] uppercase mb-0.5">Time</div>
-              <div class="font-serif-elegant text-2xl font-medium text-[#5a3a32] tracking-wide">17:00</div>
-            </div>
-          </div>
-
-          <!-- Location -->
-          <div class="flex items-center justify-center gap-4">
-            <div class="icon-circle">
-              <svg class="w-6 h-6 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <path d="M12 22s-7-6.5-7-12a7 7 0 1 1 14 0c0 5.5-7 12-7 12z" stroke-linejoin="round"/>
-                <circle cx="12" cy="10" r="2.5"/>
-              </svg>
-            </div>
-            <div class="text-left">
-              <div class="font-armenian text-[10px] tracking-[0.25em] text-[#c97b6b] uppercase mb-0.5">Location</div>
-              <div class="font-armenian text-lg font-semibold text-[#5a3a32] tracking-wide">ԱՌՆՈ ԲԱԲԱՋԱՆՅԱՆ 163/1</div>
-            </div>
-          </div>
-
-          <!-- Gift -->
-          <div class="flex items-center justify-center gap-4">
-            <div class="icon-circle">
-              <svg class="w-6 h-6 text-[#c97b6b]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                <rect x="3" y="8" width="18" height="4" rx="1"/>
-                <path d="M4 12v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8M12 8v13" stroke-linejoin="round"/>
-                <path d="M12 8c-1.5-2-4-3-4-1.5S10.5 8 12 8zM12 8c1.5-2 4-3 4-1.5S13.5 8 12 8z" stroke-linejoin="round"/>
-              </svg>
-            </div>
-            <div class="text-left">
-              <div class="font-armenian text-[10px] tracking-[0.25em] text-[#c97b6b] uppercase mb-0.5">Special</div>
-              <div class="font-armenian text-base font-medium text-[#5a3a32] leading-snug">Անակնկալ նվերներ<br/>և շոու ծրագիր</div>
-            </div>
-          </div>
-
         </div>
-
-        <!-- Ornate divider -->
-        <div class="divider-ornate w-full my-6">
-          <svg class="w-4 h-4 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 2l2.09 6.26L20 9.27l-4.5 4.39L16.18 20 12 16.77 7.82 20l.68-6.34L4 9.27l5.91-1.01z"/>
-          </svg>
+        
+        <div class="address-box">
+            <div class="detail-label" style="margin-bottom: 6px;">ՀԱՍՑԵ</div>
+            <div class="address-text">ԱՌՆՈ ԲԱԲԱՋԱՆՅԱՆ 163/1</div>
         </div>
-
-        <!-- Names label -->
-        <div class="font-armenian text-[10px] tracking-[0.3em] text-[#c97b6b] uppercase mb-4">
-          Honored Guests
+        
+        <div class="guests-box">
+            <div class="guests-title">ՀՐԱՎԻՐՅԱԼՆԵՐ</div>
+            <div class="guest-name">Աիդա Ավետիսյան</div>
+            <div class="guest-name">Թամարա Սաֆարյան</div>
+            <div class="guest-name">Հռիփի Ավետիսյան</div>
         </div>
-
-        <!-- Names list -->
-        <div class="w-full space-y-3 mb-8">
-          <div class="name-pill rounded-2xl px-6 py-3 flex items-center justify-center gap-3">
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-            <span class="font-armenian text-lg font-medium text-[#5a3a32] tracking-wide">Աիդա Ավետիսյան</span>
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-          </div>
-
-          <div class="name-pill rounded-2xl px-6 py-3 flex items-center justify-center gap-3">
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-            <span class="font-armenian text-lg font-medium text-[#5a3a32] tracking-wide">Թամարա Սաֆարյան</span>
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-          </div>
-
-          <div class="name-pill rounded-2xl px-6 py-3 flex items-center justify-center gap-3">
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-            <span class="font-armenian text-lg font-medium text-[#5a3a32] tracking-wide">Հռիփի Ավետիսյան</span>
-            <svg class="w-3.5 h-3.5 text-[#c9a96a]" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M12 2l1.5 4.5L18 8l-3.5 3 1 4.5L12 13.5 8.5 15.5l1-4.5L6 8l4.5-1.5z"/>
-            </svg>
-          </div>
+        
+        <div class="program-box">
+            <div class="program-title">Մեզ սպասվում է ✨</div>
+            <div class="program-item"><span>🎭</span> Տպավորիչ շոու ծրագիր</div>
+            <div class="program-item"><span>🥂</span> Համեղ ֆուրշետ</div>
+            <div class="program-item"><span>🎈</span> Սիրելի մուլտհերոսների մասնակցություն</div>
+            <div class="program-item"><span>🎁</span> Անակնկալ նվերներ</div>
+            <div class="program-item"><span>🎉</span> Խաղարկություն՝ գլխավոր մրցանակով</div>
+            <div class="program-item"><span>🏆</span> Հաղթողին՝ անվճար 1-ամսյա դասընթաց մեր կրթական կենտրոնում</div>
+            
+            <div class="closing-text">
+                Սիրով սպասում ենք Ձեզ՝ միասին վայելելու այս գեղեցիկ ու հիշարժան օրը։ 🤍
+            </div>
         </div>
-
-        <!-- Footer brand badge -->
-        <div class="mt-2">
-          <div class="badge rounded-full px-6 py-2.5 inline-flex items-center gap-2">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-              <path d="M12 2l3 6 6 1-4.5 4 1 6-5.5-3-5.5 3 1-6L3 9l6-1z" stroke-linejoin="round"/>
-            </svg>
-            <span class="font-armenian text-[11px] sm:text-xs tracking-[0.2em] font-semibold">ԳԳ ՍՊՈՐՏԱՅԻՆ ԱԿՈՒՄԲ</span>
-          </div>
-        </div>
-
-        <!-- Bottom flourish -->
-        <div class="mt-6 flex items-center gap-2 opacity-60">
-          <span class="w-6 h-px bg-[#c97b6b]"></span>
-          <svg class="w-3 h-3 text-[#c97b6b]" viewBox="0 0 24 24" fill="currentColor">
-            <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
-          </svg>
-          <span class="w-6 h-px bg-[#c97b6b]"></span>
-        </div>
-
-      </div>
+        
+        <div class="footer">ԳԳ ՍՊՈՐՏԱՅԻՆ ԱԿՈՒՄԲ</div>
     </div>
-  </div>
 
 </body>
 </html>
-
